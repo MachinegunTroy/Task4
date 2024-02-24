@@ -2,12 +2,16 @@ from flask import Flask, request, render_template
 import pandas as pd
 from pycaret.anomaly import *
 from urllib.parse import quote as url_quote
-
+from pathlib import Path
 app = Flask(__name__)
 
 
 # load pipeline
-loaded_model = load_model('knn_pipeline')
+script_dir = Path(_file_).resolve().parent
+model_dir = script_dir.parent / 'Models'
+model_dir.mkdir(parents=True, exist_ok=True)
+model_path = model_dir / "network_iforest_pipeline" 
+model = load_model(model_path)
 
 @app.route('/')
 def home():

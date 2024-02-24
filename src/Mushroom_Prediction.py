@@ -9,10 +9,18 @@ app = Flask(__name__)
 
 # Load the pre-trained model and pipeline
 try:
-    loaded_model = load_model('Li_Ting_model')
+    script_dir = Path(_file_).resolve().parent
+    model_dir = script_dir.parent / 'Models'
+    model_dir.mkdir(parents=True, exist_ok=True)
+    model_path = model_dir / "network_iforest_pipeline" 
+    loaded_model = load_model(model_path)
     print("Model loaded successfully")
     
-    loaded_pipeline = load('Li_Ting_pipeline.pkl')
+    script_dir = Path(_file_).resolve().parent
+    model_dir = script_dir.parent / 'Models'
+    model_dir.mkdir(parents=True, exist_ok=True)
+    model_path = model_dir / "Li_Ting_pipeline" 
+    loaded_pipeline = load_model(model_path)
     print("Pipeline loaded successfully")
     
 except Exception as e:
