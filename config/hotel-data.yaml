@@ -1,0 +1,5 @@
+dataset:
+  path: ./data/raw/01_homely_resort_listing.csv
+
+variables:
+  drop_features:  ['amenities_','latitude(North)','longitude(East)','calculated_host_listings_count','availability_30','host_listings_count','host_is_superhost','review_scores_checkin','review_scores_communication','review_scores_location','review_scores_value','review_scores_rating','number_of_reviews']

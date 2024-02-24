@@ -116,7 +116,7 @@ def predict():
 
     # Load the PyCaret model
     script_dir = Path(__file__).resolve().parent
-    model_dir = script_dir.parent / 'models'
+    model_dir = script_dir.parent / 'Models'
     model_dir.mkdir(parents=True, exist_ok=True)
     model_path = model_dir / "hotel_model"
     model = load_model(model_path)

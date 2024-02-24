@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='hotel.css') }}">
+    <script src="{{ url_for('static', filename='hotel.js') }}" defer></script>
+</head>
+<body>
+    <h1>Property Prediction</h1>
+    <form action="/hotel-predict" method="post">
+        <div class="input_row_1">
+            <label for="accommodates">Accommodates:</label>
+            <input type="number" id="accommodates" name="accommodates" min="1" required><br><br>
+
+            <label for="bathrooms">Bathrooms:</label>
+            <input type="number" id="bathrooms" name="bathrooms" min="1" required><br><br>
+
+            <label for="bedrooms">Bedrooms:</label>
+            <input type="number" id="bedrooms" name="bedrooms" min="1" required><br><br>
+
+            <label for="beds">Beds:</label>
+            <input type="number" id="beds" name="beds" min="1" required><br><br>
+
+            <label for="maximum_nights">Maximum Nights:</label>
+            <input type="number" id="maximum_nights" name="maximum_nights" min="1" required><br><br>
+        </div>
+        <div class="input_row_2">
+            <label for="guests_included">Guests Included:</label>
+            <input type="checkbox" id="guests_included" name="guests_included"><br><br>
+
+            <label for="has_availability">Has Availability:</label>
+            <input type="checkbox" id="has_availability" name="has_availability"><br><br>
+
+            <label for="instant_bookable">Instant Bookable:</label>
+            <input type="checkbox" id="instant_bookable" name="instant_bookable"><br><br>
+        </div>
+        <div class="input_row_3">
+            <label for="room_type">Room Type:</label>
+    <select id="room_type" name="room_type">
+        <option value="Entire home/apt">Entire home/apt</option>
+        <option value="Private room">Private room</option>
+        <option value="Shared room">Shared room</option>
+    </select><br><br>
+
+    <label for="property_type">Property Type:</label>
+    <select id="property_type" name="property_type">
+        <option value="Apartment">Apartment</option>
+        <option value="Bed &amp; Breakfast">Bed &amp; Breakfast</option>
+        <option value="Boat">Boat</option>
+        <option value="Bungalow">Bungalow</option>
+        <option value="Cabin">Cabin</option>
+        <option value="Camper/RV">Camper/RV</option>
+        <option value="Chalet">Chalet</option>
+        <option value="Condominium">Condominium</option>
+        <option value="Earth House">Earth House</option>
+        <option value="House">House</option>
+        <option value="Hut">Hut</option>
+        <option value="Loft">Loft</option>
+        <option value="Other">Other</option>
+        <option value="Tent">Tent</option>
+        <option value="Tipi">Tipi</option>
+        <option value="Townhouse">Townhouse</option>
+        <option value="Treehouse">Treehouse</option>
+        <option value="Villa">Villa</option>
+    </select><br><br>
+
+    <label for="bed_type">Bed Type:</label>
+    <select id="bed_type" name="bed_type">
+        <option value="Airbed">Airbed</option>
+        <option value="Couch">Couch</option>
+        <option value="Futon">Futon</option>
+        <option value="Pull-out Sofa">Pull-out Sofa</option>
+        <option value="Real Bed">Real Bed</option>
+    </select><br><br>
+
+    <label for="cancellation_policy">Cancellation Policy:</label>
+    <select id="cancellation_policy" name="cancellation_policy">
+        <option value="flexible">Flexible</option>
+        <option value="moderate">Moderate</option>
+        <option value="no_refunds">No Refunds</option>
+        <option value="Strict">Strict</option>
+        <option value="Super Strict">Super Strict</option>
+    </select><br><br>
+        </div>
+            <label for="amenities-toggle" class="amenities-toggle-label">Amenities </label>
+    <input type="checkbox" id="amenities-toggle" class="amenities-toggle-checkbox">
+    <div class="amenities-dropdown">
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Air_Conditioning" name="amenities[]" value="Air Conditioning">
+            <label for="amenities_Air_Conditioning">Air Conditioning</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Lock_on_Bedroom_Door" name="amenities[]" value="Lock on Bedroom Door">
+            <label for="amenities_Lock_on_Bedroom_Door">Lock on Bedroom Door</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Laptop_Friendly_Workspace" name="amenities[]" value="Laptop Friendly Workspace">
+            <label for="amenities_Laptop_Friendly_Workspace">Laptop Friendly Workspace</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Hair_Dryer" name="amenities[]" value="Hair Dryer">
+            <label for="amenities_Hair_Dryer">Hair Dryer</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Dog(s)" name="amenities[]" value="Dog(s)">
+            <label for="amenities_Dog(s)">Dog(s)</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Kitchen" name="amenities[]" value="Kitchen">
+            <label for="amenities_Kitchen">Kitchen</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Other_pet(s)" name="amenities[]" value="Other pet(s)">
+            <label for="amenities_Other_pet(s)">Other pet(s)</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Pets_Allowed" name="amenities[]" value="Pets Allowed">
+            <label for="amenities_Pets_Allowed">Pets Allowed</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Iron" name="amenities[]" value="Iron">
+            <label for="amenities_Iron">Iron</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Shampoo" name="amenities[]" value="Shampoo">
+            <label for="amenities_Shampoo">Shampoo</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Buzzer_Wireless_Intercom" name="amenities[]" value="Buzzer/Wireless Intercom">
+            <label for="amenities_Buzzer_Wireless_Intercom">Buzzer/Wireless Intercom</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Smoke_Detector" name="amenities[]" value="Smoke Detector">
+            <label for="amenities_Smoke_Detector">Smoke Detector</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Washer" name="amenities[]" value="Washer">
+            <label for="amenities_Washer">Washer</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_24_Hour_Check_in" name="amenities[]" value="24-Hour Check-in">
+            <label for="amenities_24_Hour_Check_in">24-Hour Check-in</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Free_Parking_on_Premises" name="amenities[]" value="Free Parking on Premises">
+            <label for="amenities_Free_Parking_on_Premises">Free Parking on Premises</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Gym" name="amenities[]" value="Gym">
+            <label for="amenities_Gym">Gym</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Pool" name="amenities[]" value="Pool">
+            <label for="amenities_Pool">Pool</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Elevator_in_Building" name="amenities[]" value="Elevator in Building">
+            <label for="amenities_Elevator_in_Building">Elevator in Building</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Cat(s)" name="amenities[]" value="Cat(s)">
+            <label for="amenities_Cat(s)">Cat(s)</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Hangers" name="amenities[]" value="Hangers">
+            <label for="amenities_Hangers">Hangers</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Cable_TV" name="amenities[]" value="Cable TV">
+            <label for="amenities_Cable_TV">Cable TV</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Suitable_for_Events" name="amenities[]" value="Suitable for Events">
+            <label for="amenities_Suitable_for_Events">Suitable for Events</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Pets_live_on_this_property" name="amenities[]" value="Pets live on this property">
+            <label for="amenities_Pets_live_on_this_property">Pets live on this property</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Safety_Card" name="amenities[]" value="Safety Card">
+            <label for="amenities_Safety_Card">Safety Card</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Breakfast" name="amenities[]" value="Breakfast">
+            <label for="amenities_Breakfast">Breakfast</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Doorman" name="amenities[]" value="Doorman">
+            <label for="amenities_Doorman">Doorman</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Family_Kid_Friendly" name="amenities[]" value="Family/Kid Friendly">
+            <label for="amenities_Family_Kid_Friendly">Family/Kid Friendly</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Washer_Dryer" name="amenities[]" value="Washer / Dryer">
+            <label for="amenities_Washer_Dryer">Washer / Dryer</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_First_Aid_Kit" name="amenities[]" value="First Aid Kit">
+            <label for="amenities_First_Aid_Kit">First Aid Kit</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Hot_Tub" name="amenities[]" value="Hot Tub">
+            <label for="amenities_Hot_Tub">Hot Tub</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Heating" name="amenities[]" value="Heating">
+            <label for="amenities_Heating">Heating</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Essentials" name="amenities[]" value="Essentials">
+            <label for="amenities_Essentials">Essentials</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Internet" name="amenities[]" value="Internet">
+            <label for="amenities_Internet">Internet</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Smoking_Allowed" name="amenities[]" value="Smoking Allowed">
+            <label for="amenities_Smoking_Allowed">Smoking Allowed</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Carbon_Monoxide_Detector" name="amenities[]" value="Carbon Monoxide Detector">
+            <label for="amenities_Carbon_Monoxide_Detector">Carbon Monoxide Detector</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Wireless_Internet" name="amenities[]" value="Wireless Internet">
+            <label for="amenities_Wireless_Internet">Wireless Internet</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Fire_Extinguisher" name="amenities[]" value="Fire Extinguisher">
+            <label for="amenities_Fire_Extinguisher">Fire Extinguisher</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_TV" name="amenities[]" value="TV">
+            <label for="amenities_TV">TV</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Indoor_Fireplace" name="amenities[]" value="Indoor Fireplace">
+            <label for="amenities_Indoor_Fireplace">Indoor Fireplace</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Wheelchair_Accessible" name="amenities[]" value="Wheelchair Accessible">
+            <label for="amenities_Wheelchair_Accessible">Wheelchair Accessible</label>
+        </div>
+        <div class="amenity">
+            <input type="checkbox" id="amenities_Dryer" name="amenities[]" value="Dryer">
+            <label for="amenities_Dryer">Dryer</label>
+        </div>
+    </div>
+        <br><br>
+        <input type="submit" value="Predict">
+    </form>
+</body>
+</html>

@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Hide the checkbox */
+.amenities-toggle-checkbox {
+    display: none;
+}
+
+/* Container for the dropdown */
+.amenities-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.amenities-dropdown {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.amenity {
+    flex: 0 0 calc(33.33% - 10px); /* Three items per row, adjust as needed */
+    margin-right: 10px; /* Adjust as needed for spacing */
+    margin-bottom: 5px; /* Adjust as needed for vertical spacing */
+}
+
+/* Style for the toggle label */
+.amenities-toggle-label {
+    cursor: pointer;
+}
+
+/* Arrow indicator for toggle label */
+.amenities-toggle-label::after {
+    content: "▼";
+}
+
+/* Hide dropdown when checkbox is not checked */
+.amenities-toggle-checkbox:not(:checked) + .amenities-dropdown {
+    display: none;
+}
+
+/* Additional styling for input rows */
+.input_row_1,
+.input_row_2,
+.input_row_3 {
+    width: 75px;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+    align-items: center;
+}
+
+.input_row_1 input {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.input_row_1 label,
+.input_row_2 label,
+.input_row_3 label {
+    text-align: center;
+}
+h1 {
+    text-align: center;
+}
+form {
+    max-width: 850px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
