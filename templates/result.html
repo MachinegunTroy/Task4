@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Prediction Result</title>
+    <style>
+        /* CSS to center align the prediction result */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column; /* Align items in a column */
+            text-align: center; /* Align paragraphs to the center */
+        }
+
+        #prediction-container {
+            margin-top: 50px;
+        }
+
+        /* Define CSS classes for different font colors */
+        .poisonous {
+            color: red;
+            font-size: 30px;
+        }
+
+        .edible {
+            color: green;
+            font-size: 30px;
+        }
+
+        /* CSS for images */
+        .result-image {
+            width: 100px; /* Adjust the width of the images */
+            height: auto;
+            margin-top: 10px; /* Adjust the margin between images */
+            margin-left: 50px;
+        }
+
+        .label{
+            font-size:30px;
+            margin-bottom:20px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Your HTML content here -->
+    
+    <p>Predicting mushroom edibility is crucial for preventing poisoning incidents. <br>
+        Machine learning models help identify safe mushrooms, promoting public health and safety.<br> 
+        These models aid in informed foraging decisions, reducing the risk of toxic ingestion.<br>
+        Overall, they promote safe consumption and prevent health complications.</p>
+    <br>
+    <p>Even with <strong style="color: green;">high accuracy</strong>, predicted result <strong style="color: red;">might not always be accurate</strong>.<br>
+        Thus, use this predictions at <strong style="color: red;">your own risk</strong>.</p>
+    
+    
+    <div id="prediction-container">
+       <p class="label">Result :<div id="prediction-result"></div></p>
+        <div id="image-container"></div> <!-- Placeholder for the image -->
+    </div>
+
+    <!-- Add JavaScript code to update prediction result -->
+    <script>
+        // Get the prediction result from the rendered template
+        const predictionResult = "{{ prediction_result }}";
+
+        // Define a function to update prediction result with appropriate font color and show relevant image
+        function updatePredictionResult(result) {
+            const predictionElement = document.getElementById('prediction-result');
+            
+            // Wrap the word "poisonous" or "edible" in <span> elements with appropriate classes
+            let formattedResult = result.replace(/\b(poisonous)\b/g, '<span class="poisonous">$1</span>');
+            formattedResult = formattedResult.replace(/\b(edible)\b/g, '<span class="edible">$1</span>');
+            predictionElement.innerHTML = formattedResult;
+
+            // Create an image element
+            const image = document.createElement('img');
+            image.classList.add('result-image');
+
+            // Set image source based on prediction result
+            if (result.toLowerCase().includes('poisonous')) {
+                image.src = "/static/image/poisonous mr.jpg"; // Set image source for poisonous
+            } else if (result.toLowerCase().includes('edible')) {
+                image.src = "/static/image/mr.png"; // Set image source for edible
+            }
+
+            // Append the image below the prediction result
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.appendChild(image); // Append the image
+            image.style.display = 'block'; // Show the image
+        }
+
+        // Call the updatePredictionResult function with the prediction result
+        updatePredictionResult(predictionResult);
+    </script>
+</body>
+</html>

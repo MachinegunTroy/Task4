@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Mushroom Edibility</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+          /* Custom CSS to center align the form */
+          /* page 2 middle form */
+          .middle-column {
+            position: absolute;
+            top: 80%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+            max-width: 700px; /* Adjust the max-width as needed */
+            width: 90%; /* Adjust the width as needed */
+            /* padding: 10px; */
+           
+            border-radius: 10px;}
+
+            .middle-column label {
+            margin-left:100px;
+            margin-top: 10px; /* Adjust the margin as needed */
+        }
+        .button-container {
+            text-align: center;
+            margin-right:185px;
+            margin-top: 20px; /* Adjust the margin as needed */
+          }
+        
+    
+    </style>
+</head>
+<!-- cols = ['cap-shape' ,'cap-surface', 'cap-color', 'bruises', 'odor',
+                      'gill-attachment', 'gill-spacing', 'gill-size',
+                        'gill-color', 'stalk-shape', 'stalk-root', 
+                        'stalk-surface-above-ring', 'stalk-surface-below-ring',
+                          'stalk-color-above-ring', 'stalk-color-below-ring', 
+                          'veil-color', 'ring-number', 'ring-type', 'spore-print-color',
+                            'population', 'habitat']  -->
+<body>
+    <div class="middle-column">
+    <div class="predict">
+        <h1>Predict Mushroom Edibility</h1>
+
+        <form action="{{url_for('predict')}}" method="POST">
+            <label for="cap-shape">Cap Shape:</label>
+            <select id="cap-shape" name="cap-shape" required="required">
+                <option value="">Select Cap Shape</option>
+                <option value="bell">Bell</option>
+                <option value="conical">Conical</option>
+                <option value="convex">Convex</option>
+                <option value="flat">Flat</option>
+                <option value="knobbed">Knobbed</option>
+                <option value="sunken">Sunken</option>
+            </select><br>
+            <label for="cap-surface">Cap Surface:</label>
+            <select id="cap-surface" name="cap-surface" required="required">
+                <option value="">Select Cap Surface</option>
+                <option value="smooth">Smooth</option>
+                <option value="scaly">Scaly</option>
+                <option value="fibrous">Fibrous</option>
+                <option value="grooves">Grooves</option>
+            </select><br>
+
+
+            <label for="cap-color">Cap Color:</label>
+            <select id="cap-color" name="cap-color" required="required">
+                <option value="">Select Cap Color</option>
+                <option value="brown">Brown</option>
+                <option value="yellow">Yellow</option>
+                <option value="white">White</option>
+                <option value="gray">Gray</option>
+                <option value="red">Red</option>
+                <option value="pink">Pink</option>
+                <option value="buff">Buff</option>
+                <option value="purple">Purple</option>
+                <option value="cinnamon">Cinnamon</option>
+                <option value="green">Green</option>
+            </select><br>
+            <label for="bruises">Bruises:</label>
+            <select id="bruises" name="bruises" required="required">
+                <option value="">Select Bruises</option>
+                <option value="bruises">Bruises</option>
+                <option value="no">No Bruises</option>
+            </select><br>
+
+            <label for="odor">Odor:</label>
+            <select id="odor" name="odor" required="required">
+                <option value="">Select Odor</option>
+                <option value="pungent">Pungent</option>
+                <option value="almond">Almond</option>
+                <option value="anise">Anise</option>
+                <option value="none">None</option>
+                <option value="foul">Foul</option>
+                <option value="creosote">Creosote</option>
+                <option value="fishy">Fishy</option>
+                <option value="spicy">Spicy</option>
+                <option value="musty">Musty</option>
+            </select><br>
+
+            <label for="gill-attachment">Gill Attachment:</label>
+            <select id="gill-attachment" name="gill-attachment" required="required">
+                <option value="">Select Gill Attachment</option>
+                <option value="free">Free</option>
+                <option value="attached">Attached</option>
+            </select><br>
+
+            <label for="gill-spacing">Gill Spacing:</label>
+            <select id="gill-spacing" name="gill-spacing" required="required">
+                <option value="">Select Gill Spacing</option>
+                <option value="close">Close</option>
+                <option value="crowded">Crowded</option>
+            </select><br>
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="gill-size">Gill Size:</label>
+            <select id="gill-size" name="gill-size" required="required">
+                <option value="">Select Gill Size</option>
+                <option value="narrow">Narrow</option>
+                <option value="broad">Broad</option>
+            </select><br>
+
+           
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="gill-color">Gill Color:</label>
+            <select id="gill-color" name="gill-color" required="required">
+                <option value="">Select Gill Color</option>
+                <option value="black">Black</option>
+                <option value="brown">Brown</option>
+                <option value="gray">Gray</option>
+                <option value="pink">Pink</option>
+                <option value="white">White</option>
+                <option value="chocolate">Chocolate</option>
+                <option value="purple">Purple</option>
+                <option value="red">Red</option>
+                <option value="buff">Buff</option>
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
+                <option value="orange">Orange</option>
+            </select><br>
+
+             <!-- Add select dropdowns for the remaining attributes -->
+             <label for="stalk-shape">Stalk Shape:</label>
+             <select id="stalk-shape" name="stalk-shape" required="required">
+                 <option value="">Select Stalk Shape</option>
+                 <option value="enlarging">Enlarging</option>
+                 <option value="tapering">Tapering</option>
+             </select><br>
+
+             <!-- Add select dropdowns for the remaining attributes -->
+             <label for="stalk-root">Stalk Root:</label>
+             <select id="stalk-root" name="stalk-root" required="required">
+                 <option value="">Select Stalk Root</option>
+                 <option value="equal">Equal</option>
+                 <option value="club">Club</option>
+                 <option value="bulbous">Bulbous</option>
+                 <option value="rooted">Rooted</option>
+             </select><br>
+ 
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="stalk-surface-above-ring">Stalk Surface Above Ring:</label>
+            <select id="stalk-surface-above-ring" name="stalk-surface-above-ring" required="required">
+                <option value="">Select Stalk Surface Above Ring</option>
+                <option value="smooth">Smooth</option>
+                <option value="fibrous">Fibrous</option>
+                <option value="silky">Silky</option>
+                <option value="scaly">Scaly</option>
+            </select><br>
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="stalk-surface-below-ring">Stalk Surface Below Ring:</label>
+            <select id="stalk-surface-below-ring" name="stalk-surface-below-ring" required="required">
+                <option value="">Select Stalk Surface Below Ring</option>
+                <option value="smooth">Smooth</option>
+                <option value="fibrous">Fibrous</option>
+                <option value="scaly">Scaly</option>
+                <option value="silky">Silky</option>
+            </select><br>
+            
+             <!-- Add select dropdowns for the remaining attributes -->
+             <label for="stalk-color-above-ring">Stalk Color Above Ring:</label>
+             <select id="stalk-color-above-ring" name="stalk-color-above-ring" required="required">
+                 <option value="">Select Stalk Color Above Ring</option>
+                 <option value="white">White</option>
+                 <option value="gray">Gray</option>
+                 <option value="pink">Pink</option>
+                 <option value="brown">Brown</option>
+                 <option value="buff">Buff</option>
+                 <option value="red">Red</option>
+                 <option value="orange">Orange</option>
+                 <option value="cinnamon">Cinnamon</option>
+                 <option value="yellow">Yellow</option>
+             </select><br>
+
+             <!-- Add select dropdowns for the remaining attributes -->
+             <label for="stalk-color-below-ring">Stalk Color Below Ring:</label>
+             <select id="stalk-color-below-ring" name="stalk-color-below-ring" required="required">
+                 <option value="">Select Stalk Color Below Ring</option>
+                 <option value="white">White</option>
+                 <option value="pink">Pink</option>
+                 <option value="gray">Gray</option>
+                 <option value="buff">Buff</option>
+                 <option value="brown">Brown</option>
+                 <option value="red">Red</option>
+                 <option value="yellow">Yellow</option>
+                 <option value="orange">Orange</option>
+                 <option value="cinnamon">Cinnamon</option>
+             </select><br>
+
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="veil-color">Veil Color:</label>
+            <select id="veil-color" name="veil-color" required="required">
+                <option value="">Select Veil Color</option>
+                <option value="white">White</option>
+                <option value="brown">Brown</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+            </select><br>
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="ring-number">Ring Number:</label>
+            <select id="ring-number" name="ring-number" required="required">
+                <option value="">Select Ring Number</option>
+                <option value="one">One</option>
+                <option value="two">Two</option>
+                <option value="none">None</option>
+            </select><br>
+
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="ring-type">Ring Type:</label>
+            <select id="ring-type" name="ring-type" required="required">
+                <option value="">Select Ring Type</option>
+                <option value="pendant">Pendant</option>
+                <option value="evanescent">Evanescent</option>
+                <option value="large">Large</option>
+                <option value="flaring">Flaring</option>
+                <option value="none">None</option>
+            </select><br>
+         
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="spore-print-color">Spore Print Color:</label>
+            <select id="spore-print-color" name="spore-print-color" required="required">
+                <option value="">Select Spore Print Color</option>
+                <option value="black">Black</option>
+                <option value="brown">Brown</option>
+                <option value="purple">Purple</option>
+                <option value="chocolate">Chocolate</option>
+                <option value="white">White</option>
+                <option value="green">Green</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="buff">Buff</option>
+            </select><br>
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="population">Population:</label>
+            <select id="population" name="population" required="required">
+                <option value="">Select Population</option>
+                <option value="scattered">Scattered</option>
+                <option value="numerous">Numerous</option>
+                <option value="abundant">Abundant</option>
+                <option value="several">Several</option>
+                <option value="solitary">Solitary</option>
+                <option value="clustered">Clustered</option>
+            </select><br>
+
+            <!-- Add select dropdowns for the remaining attributes -->
+            <label for="habitat">Habitat:</label>
+            <select id="habitat" name="habitat" required="required">
+                <option value="">Select Habitat</option>
+                <option value="urban">Urban</option>
+                <option value="grasses">Grasses</option>
+                <option value="meadows">Meadows</option>
+                <option value="woods">Woods</option>
+                <option value="path">Path</option>
+                <option value="leaves">Leaves</option>
+            </select><br>
+
+
+            <!-- Add other select fields with respective options and labels here -->
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary btn-large">Predict</button>
+            </div>
+      </div>
+    </div>
+        </form>
+
+          <!-- Add a placeholder for displaying prediction result -->
+        <div id="prediction-result"></div>
+    </div>
+</div>
+
+   
+   
+</body>
+</html>
