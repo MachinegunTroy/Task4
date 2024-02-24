@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Network Traffic Classification using Anomaly Detection</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body { 
+                padding-top: 20px; 
+                padding-bottom: 80px; /* Increased bottom padding to avoid overlap with the fixed bottom navbar */
+                background-color: #f5f5dc; /* Beige background */
+            }
+            .container { max-width: 800px; }
+            .custom-select, .form-control { margin-bottom: 20px; }
+            .navbar { background-color: #808080; } /* Grey background for navbars */
+            .title-text { text-align: center; margin-bottom: 40px; } /* Centered title */
+        </style>
+    </head>
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Add more nav items here if needed -->
+            </ul>
+        </div>
+    </nav>
+
+
+<div class="container">
+    <h2 class="mb-4">Input Data for Prediction</h2>
+    <form action="/predict" method="post" class="needs-validation" novalidate>
+        
+        <div class="form-group">
+            <label for="duration">Duration:</label>
+            <input type="text" class="form-control" id="duration" name="duration" required>
+        </div>
+
+        <div class="form-group">
+            <label for="protocoltype">Protocol Type:</label>
+            <select class="custom-select" id="protocoltype" name="protocoltype">
+                <option value="tcp">TCP</option>
+                <option value="udp">UDP</option>
+                <option value="icmp">ICMP</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="service">Service:</label>
+            <select class="custom-select" id="service" name="service">
+                <option value="ftp_data">ftp_data</option>
+                <option value="other">other</option>
+                <option value="private">private</option>
+                <option value="http">http</option>
+                <option value="remote_job">remote_job</option>
+                <option value="name">name</option>
+                <option value="netbios_ns">netbios_ns</option>
+                <option value="eco_i">eco_i</option>
+                <option value="mtp">mtp</option>
+                <option value="telnet">telnet</option>
+                <option value="finger">finger</option>
+                <option value="domain_u">domain_u</option>
+                <option value="supdup">supdup</option>
+                <option value="uucp_path">uucp_path</option>
+                <option value="Z39_50">Z39_50</option>
+                <option value="smtp">smtp</option>
+                <option value="csnet_ns">csnet_ns</option>
+                <option value="uucp">uucp</option>
+                <option value="netbios_dgm">netbios_dgm</option>
+                <option value="urp_i">urp_i</option>
+                <option value="auth">auth</option>
+                <option value="domain">domain</option>
+                <option value="ftp">ftp</option>
+                <option value="bgp">bgp</option>
+                <option value="ldap">ldap</option>
+                <option value="ecr_i">ecr_i</option>
+                <option value="gopher">gopher</option>
+                <option value="vmnet">vmnet</option>
+                <option value="systat">systat</option>
+                <option value="http_443">http_443</option>
+                <option value="efs">efs</option>
+                <option value="whois">whois</option>
+                <option value="imap4">imap4</option>
+                <option value="iso_tsap">iso_tsap</option>
+                <option value="echo">echo</option>
+                <option value="klogin">klogin</option>
+                <option value="link">link</option>
+                <option value="sunrpc">sunrpc</option>
+                <option value="login">login</option>
+                <option value="kshell">kshell</option>
+                <option value="sql_net">sql_net</option>
+                <option value="time">time</option>
+                <option value="hostnames">hostnames</option>
+                <option value="exec">exec</option>
+                <option value="ntp_u">ntp_u</option>
+                <option value="discard">discard</option>
+                <option value="nntp">nntp</option>
+                <option value="courier">courier</option>
+                <option value="ctf">ctf</option>
+                <option value="ssh">ssh</option>
+                <option value="daytime">daytime</option>
+                <option value="shell">shell</option>
+                <option value="netstat">netstat</option>
+                <option value="pop_3">pop_3</option>
+                <option value="nnsp">nnsp</option>
+                <option value="IRC">IRC</option>
+                <option value="pop_2">pop_2</option>
+                <option value="printer">printer</option>
+                <option value="tim_i">tim_i</option>
+                <option value="pm_dump">pm_dump</option>
+                <option value="red_i">red_i</option>
+                <option value="netbios_ssn">netbios_ssn</option>
+                <option value="rje">rje</option>
+                <option value="X11">X11</option>
+                <option value="urh_i">urh_i</option>
+                <option value="http_8001">http_8001</option>
+                <option value="aol">aol</option>
+                <option value="http_2784">http_2784</option>
+                <option value="tftp_u">tftp_u</option>
+                <option value="harvest">harvest</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="flag">Flag:</label>
+            <select class="custom-select" id="flag" name="flag">
+                <option value="SF">SF</option>
+                <option value="S0">S0</option>
+                <option value="REJ">REJ</option>
+                <option value="RSTR">RSTR</option>
+                <option value="SH">SH</option>
+                <option value="RSTO">RSTO</option>
+                <option value="S1">S1</option>
+                <option value="RSTOS0">RSTOS0</option>
+                <option value="S3">S3</option>
+                <option value="S2">S2</option>
+                <option value="OTH">OTH</option>
+            </select>
+        </div>
+
+        <label for="srcbytes">Source Bytes:</label><br>
+        <input type="text" id="srcbytes" name="srcbytes"><br>
+
+        <label for="dstbytes">Destination Bytes:</label><br>
+        <input type="text" id="dstbytes" name="dstbytes"><br>
+
+        <label for="land">Land:</label><br>
+        <input type="text" id="land" name="land"><br>
+
+        <label for="wrongfragment">Wrong Fragment:</label><br>
+        <input type="text" id="wrongfragment" name="wrongfragment"><br>
+
+        <label for="urgent">Urgent:</label><br>
+        <input type="text" id="urgent" name="urgent"><br>
+
+        <label for="hot">Hot:</label><br>
+        <input type="text" id="hot" name="hot"><br>
+
+        <label for="numfailedlogins">Number of Failed Logins:</label><br>
+        <input type="text" id="numfailedlogins" name="numfailedlogins"><br>
+
+        <label for="loggedin">Logged In:</label><br>
+        <input type="text" id="loggedin" name="loggedin"><br>
+
+        <label for="numcompromised">Number Compromised:</label><br>
+        <input type="text" id="numcompromised" name="numcompromised"><br>
+
+        <label for="rootshell">Root Shell:</label><br>
+        <input type="text" id="rootshell" name="rootshell"><br>
+
+        <label for="suattempted">Su Attempted:</label><br>
+        <input type="text" id="suattempted" name="suattempted"><br>
+
+        <label for="numroot">Number Root:</label><br>
+        <input type="text" id="numroot" name="numroot"><br>
+
+        <label for="numfilecreations">Number File Creations:</label><br>
+        <input type="text" id="numfilecreations" name="numfilecreations"><br>
+
+        <label for="numshells">Number Shells:</label><br>
+        <input type="text" id="numshells" name="numshells"><br>
+
+        <label for="numaccessfiles">Number Access Files:</label><br>
+        <input type="text" id="numaccessfiles" name="numaccessfiles"><br>
+
+        <label for="numoutboundcmds">Number Outbound Cmds:</label><br>
+        <input type="text" id="numoutboundcmds" name="numoutboundcmds"><br>
+
+        <label for="ishostlogin">Is Host Login:</label><br>
+        <input type="text" id="ishostlogin" name="ishostlogin"><br>
+
+        <label for="isguestlogin">Is Guest Login:</label><br>
+        <input type="text" id="isguestlogin" name="isguestlogin"><br>
+
+        <label for="count">Count:</label><br>
+        <input type="text" id="count" name="count"><br>
+
+        <label for="srvcount">Srv Count:</label><br>
+        <input type="text" id="srvcount" name="srvcount"><br>
+
+        <label for="serrorrate">Serror Rate:</label><br>
+        <input type="text" id="serrorrate" name="serrorrate"><br>
+
+        <label for="srvserrorrate">Srv Serror Rate:</label><br>
+        <input type="text" id="srvserrorrate" name="srvserrorrate"><br>
+
+        <label for="rerrorrate">Rerror Rate:</label><br>
+        <input type="text" id="rerrorrate" name="rerrorrate"><br>
+
+        <label for="srvrerrorrate">Srv Rerror Rate:</label><br>
+        <input type="text" id="srvrerrorrate" name="srvrerrorrate"><br>
+
+        <label for="samesrvrate">Same Srv Rate:</label><br>
+        <input type="text" id="samesrvrate" name="samesrvrate"><br>
+
+        <label for="diffsrvrate">Diff Srv Rate:</label><br>
+        <input type="text" id="diffsrvrate" name="diffsrvrate"><br>
+
+        <label for="srvdiffhostrate">Srv Diff Host Rate:</label><br>
+        <input type="text" id="srvdiffhostrate" name="srvdiffhostrate"><br>
+
+        <label for="dsthostcount">Dst Host Count:</label><br>
+        <input type="text" id="dsthostcount" name="dsthostcount"><br>
+
+        <label for="dsthostsrvcount">Dst Host Srv Count:</label><br>
+        <input type="text" id="dsthostsrvcount" name="dsthostsrvcount"><br>
+
+        <label for="dsthostsamesrvrate">Dst Host Same Srv Rate:</label><br>
+        <input type="text" id="dsthostsamesrvrate" name="dsthostsamesrvrate"><br>
+
+        <label for="dsthostdiffsrvrate">Dst Host Diff Srv Rate:</label><br>
+        <input type="text" id="dsthostdiffsrvrate" name="dsthostdiffsrvrate"><br>
+
+        <label for="dsthostsamesrcportrate">Dst Host Same Src Port Rate:</label><br>
+        <input type="text" id="dsthostsamesrcportrate" name="dsthostsamesrcportrate"><br>
+
+        <label for="dsthostsrvdiffhostrate">Dst Host Srv Diff Host Rate:</label><br>
+        <input type="text" id="dsthostsrvdiffhostrate" name="dsthostsrvdiffhostrate"><br>
+
+        <label for="dsthostserrorrate">Dst Host Serror Rate:</label><br>
+        <input type="text" id="dsthostserrorrate" name="dsthostserrorrate"><br>
+
+        <label for="dsthostsrvserrorrate">Dst Host Srv Serror Rate:</label><br>
+        <input type="text" id="dsthostsrvserrorrate" name="dsthostsrvserrorrate"><br>
+
+        <label for="dsthostrerrorrate">Dst Host Rerror Rate:</label><br>
+        <input type="text" id="dsthostrerrorrate" name="dsthostrerrorrate"><br>
+
+        <label for="dsthostsrvrerrorrate">Dst Host Srv Rerror Rate:</label><br>
+        <input type="text" id="dsthostsrvrerrorrate" name="dsthostsrvrerrorrate"><br>
+
+        <!-- <label for="attack">Attack Type:</label><br>
+        <input type="text" id="attack" name="attack"><br> -->
+
+        <label for="lastflag">Last Flag:</label><br>
+        <input type="text" id="lastflag" name="lastflag"><br>
+
+        <div>
+        <input type="submit" value="Predict">
+        </div>
+    </form>
+     <!-- Bottom Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-light fixed-bottom">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bottomNav" aria-controls="bottomNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="bottomNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Privacy Policy</a>
+                </li>
+                <!-- Add more nav items here if needed -->
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>
