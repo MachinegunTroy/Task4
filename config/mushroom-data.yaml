@@ -1,0 +1,7 @@
+dataset:
+  path: data\raw\02_mushroom_data.csv
+
+target: class
+session_id: 123
+experiment_name: mushroom
+

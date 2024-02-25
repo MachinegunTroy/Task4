@@ -1,0 +1,7 @@
+session_id: 123
+experiment_name: network-traffic-classification
+model_id: iforest
+dataset:
+  train_path: data/raw/Test.txt
+  test_path: data/raw/Train.txt
+
