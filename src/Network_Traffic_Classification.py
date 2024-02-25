@@ -3,15 +3,17 @@ import pandas as pd
 from pycaret.anomaly import *
 from urllib.parse import quote as url_quote
 from pathlib import Path
-app = Flask(__name__)
 
 
-# load pipeline
-script_dir = Path(_file_).resolve().parent
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
+
+
+# Load the PyCaret model
+script_dir = Path(__file__).resolve().parent
 model_dir = script_dir.parent / 'Models'
 model_dir.mkdir(parents=True, exist_ok=True)
-model_path = model_dir / "network_iforest_pipeline" 
-model = load_model(model_path)
+model_path = model_dir / "network_iforest_pipeline"
+loaded_model = load_model(model_path)
 
 @app.route('/')
 def home():

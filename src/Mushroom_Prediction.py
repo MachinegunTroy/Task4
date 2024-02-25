@@ -3,23 +3,25 @@ from pycaret.classification import load_model, predict_model
 from joblib import load
 import pandas as pd
 import traceback  
+from pathlib import Path
 
 # Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Load the pre-trained model and pipeline
 try:
-    script_dir = Path(_file_).resolve().parent
+    # Load the PyCaret model
+    script_dir = Path(__file__).resolve().parent
     model_dir = script_dir.parent / 'Models'
     model_dir.mkdir(parents=True, exist_ok=True)
-    model_path = model_dir / "network_iforest_pipeline" 
+    model_path = model_dir / "Li_Ting_model"
     loaded_model = load_model(model_path)
-    print("Model loaded successfully")
     
-    script_dir = Path(_file_).resolve().parent
+    # Load the PyCaret model
+    script_dir = Path(__file__).resolve().parent
     model_dir = script_dir.parent / 'Models'
     model_dir.mkdir(parents=True, exist_ok=True)
-    model_path = model_dir / "Li_Ting_pipeline" 
+    model_path = model_dir / "Li_Ting_pipeline"
     loaded_pipeline = load_model(model_path)
     print("Pipeline loaded successfully")
     
